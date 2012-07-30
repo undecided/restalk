@@ -1,4 +1,5 @@
 class Restalk
+  VERSION = '0.0.0'
   def self.init(adapter)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if adapter == :resque

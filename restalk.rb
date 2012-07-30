@@ -5,13 +5,13 @@ class Restalk
   VERSION = '0.0.0.5'
   def self.init(adapter)
     extend BeanstalkAdapter if adapter == :beanstalk
-    extend ResqueAdapter if adapter == :resque
+    extend ResqueAdapter if [:resque, :redis].include? adapter
     super()
   end
   
   module BeanstalkAdapter
     def init
-      @@beanstalk = Beanstalk::Pool.new(['127.0.0.1:11300'])
+      @@beanstalk = Beanstalk::Pool.new([ENV['BEANSTALK'] || '127.0.0.1:11300'])
     end
 
     def push(data)
@@ -39,7 +39,7 @@ class Restalk
 
     def pop
       data = Resque.pop QUEUE
-      RestalkResqueJob.new data['args'].first
+      return RestalkResqueJob.new data['args'].first if data
     end
 
     def stats

@@ -1,5 +1,5 @@
 class Restalk
-  VERSION = '0.0.0.1'
+  VERSION = '0.0.0.2'
   def self.init(adapter)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if adapter == :resque
@@ -7,7 +7,7 @@ class Restalk
   end
   
   module BeanstalkAdapter
-    def init(adapter)
+    def init
       @@beanstalk = Beanstalk::Pool.new(['127.0.0.1:11300'])
     end
 
@@ -25,7 +25,7 @@ class Restalk
   end
 
   module ResqueAdapter
-    def init(adapter)
+    def init
 
     end
   end

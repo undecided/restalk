@@ -3,11 +3,11 @@ class Restalk
   def self.init(adapter)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if adapter == :resque
-    super
+    super()
   end
   
   module BeanstalkAdapter
-    def init
+    def init(adapter)
       @@beanstalk = Beanstalk::Pool.new(['127.0.0.1:11300'])
     end
 
@@ -25,7 +25,7 @@ class Restalk
   end
 
   module ResqueAdapter
-    def init
+    def init(adapter)
 
     end
   end

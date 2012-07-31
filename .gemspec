@@ -1,4 +1,4 @@
-require File.expand_path("../version", __FILE__)
+require File.expand_path("../restalk", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name    = 'restalk'

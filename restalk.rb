@@ -1,5 +1,3 @@
-require 'bundler/setup'
-
 require './version'
 class Restalk
   def self.init(adapter)

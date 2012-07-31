@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
 
   #gem.add_development_dependency('rake')
   gem.add_dependency('beanstalk-client', ["1.0.2"])
-  gem.add_dependency('resque')
+  gem.add_dependency('resque', ['1.21.0'])
 
   # ensure the gem is built out of versioned files
   gem.files = Dir['Rakefile', '{bin,lib,man,test,spec}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")

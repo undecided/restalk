@@ -8,6 +8,7 @@ class Restalk
   
   module BeanstalkAdapter
     def init
+      require 'beanstalk-client'
       @@beanstalk = Beanstalk::Pool.new([ENV['BEANSTALK'] || '127.0.0.1:11300'])
     end
 
@@ -27,6 +28,7 @@ class Restalk
   module ResqueAdapter
     QUEUE = 'jarvis_pdf'
     def init
+      require 'resque'
       Resque.redis = ENV['REDIS'] || 'localhost:6379'
     end
 

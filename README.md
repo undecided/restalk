@@ -8,7 +8,7 @@ It's a quick hack to allow me to quickly and simply move a project from one to t
 It has a very simple interface:
 
 ```ruby
-Restalk.new(:resque)  # Create a queue manager (in this case, resque)
+Restalk.init(:resque) # Create a connection to the backend (in this case, resque)
 Restalk.push(object)  # Push something onto the queue
 Restalk.pop           # Pop something off the queue
 Restalk.stats         # Statistics (whatever the backend gives us - could be gibberish)

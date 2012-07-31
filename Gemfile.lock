@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    restalk (0.0.0.4)
+    restalk (0.0.0.7)
       beanstalk-client (= 1.0.2)
       resque
 

@@ -1,7 +1,7 @@
 require 'bundler/setup'
 
+require './version'
 class Restalk
-  VERSION = '0.0.0.6'
   def self.init(adapter)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if [:resque, :redis].include? adapter

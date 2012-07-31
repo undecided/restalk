@@ -11,14 +11,16 @@ It has a very simple interface:
 Restalk.init(:resque) # Create a connection to the backend (in this case, resque)
 Restalk.push(object)  # Push something onto the queue
 Restalk.pop           # Pop something off the queue
+
+Restalk.connected?    # Test whether init has been called
 Restalk.stats         # Statistics (whatever the backend gives us - could be gibberish)
 ```
 
 Author
 ------
 
-Matthew Bennett @undecisive
-Got a question? Message me on [Github](http://github.com/undecisive)
+Matthew Bennett @undecisive [wearepandr.com](http://wearepandr.com)
+Got a question? Message me on [Github](http://github.com/undecisive) or add an issue.
 
 
 License

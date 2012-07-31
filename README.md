@@ -16,6 +16,16 @@ Restalk.connected?    # Test whether init has been called
 Restalk.stats         # Statistics (whatever the backend gives us - could be gibberish)
 ```
 
+Configuration
+-------------
+
+Servers: Restalk defaults to '127.0.0.1:11300' for beanstalk and 'localhost:6379' for resque.
+
+Queue: Restalk names the queue, highly imaginatively, 'restalk_queue'
+
+These can be configured easily via environment variables - ENV['BEANSTALK'], ENV['REDIS'] and ENV['RESQUE_QUEUE'].
+
+
 Author
 ------
 

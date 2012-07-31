@@ -1,6 +1,6 @@
 
 class Restalk
-  VERSION = '0.0.0.11'
+  VERSION = '0.0.0.13'
   def self.init(adapter)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if [:resque, :redis].include? adapter
@@ -31,7 +31,7 @@ class Restalk
   end
 
   module ResqueAdapter
-    QUEUE = 'jarvis_pdf'
+    QUEUE = ENV['RESQUE_QUEUE'] || 'restalk_queue'
     def init
       require 'resque'
       Resque.redis = ENV['REDIS'] || 'localhost:6379'

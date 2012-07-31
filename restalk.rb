@@ -1,9 +1,14 @@
 require './version'
 class Restalk
+  VERSION = '0.0.0.11'
   def self.init(adapter)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if [:resque, :redis].include? adapter
     super()
+  end
+
+  def self.connected?
+    self.respond_to? :push
   end
   
   module BeanstalkAdapter

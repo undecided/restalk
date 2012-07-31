@@ -1,4 +1,4 @@
-require './version'
+
 class Restalk
   VERSION = '0.0.0.11'
   def self.init(adapter)

@@ -8,8 +8,8 @@ It's a quick hack to allow me to quickly and simply move a project from one to t
 It has a very simple interface:
 
 ```ruby
-Restalk.new(:resque)  - Create a queue manager (in this case, resque)
-Restalk.push()        - Push something onto the queue
-Restalk.pop()         - Pop something off the queue
-Restalk.stats()       - Statistics (poss. beanstalk only?)
+Restalk.new(:resque)  # Create a queue manager (in this case, resque)
+Restalk.push()        # Push something onto the queue
+Restalk.pop()         # Pop something off the queue
+Restalk.stats()       # Statistics (poss. beanstalk only?)
 ```

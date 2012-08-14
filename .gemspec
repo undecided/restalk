@@ -1,4 +1,4 @@
-require File.expand_path("../restalk", __FILE__)
+require File.expand_path("../lib/restalk", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name    = 'restalk'
@@ -17,5 +17,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('resque', ['1.21.0'])
 
   # ensure the gem is built out of versioned files
-  gem.files = Dir['Rakefile', '{bin,lib,man,test,spec}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
+  gem.files = `git ls-files`.split($\)
+  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
 end

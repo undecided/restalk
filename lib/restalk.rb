@@ -1,10 +1,13 @@
 
+
 class Restalk
-  VERSION = '0.1.0'
-  def initialize(adapter, queue=nil)
+  class RestalkBeanstalkException < StandardError; end
+
+  VERSION = '0.1.1'
+  def initialize(adapter, server=nil, queue=nil)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if [:resque, :redis].include? adapter
-    init queue
+    init server, queue
   end
 
   def connected?
@@ -20,9 +23,11 @@ class Restalk
   end
 
   module BeanstalkAdapter
-    def init
-      require 'beanstalk-client'
-      @beanstalk = Beanstalk::Pool.new([ENV['BEANSTALK'] || '127.0.0.1:11300'])
+    def init(server = nil, queue = nil)
+      require 'beaneater'
+      @beanstalk = Beaneater::Pool.new([server || ENV['BEANSTALK'] || '127.0.0.1:11300'])
+      tube = queue || ENV['BEANSTALK_QUEUE'] || 'default'
+      @beanstalk = @beanstalk.tubes[tube]
     end
 
     def push(data)
@@ -30,7 +35,7 @@ class Restalk
     end
 
     def pop
-      @beanstalk.reserve
+      @beanstalk.reserve if @beanstalk.peek(:ready)
     end
 
     def stats
@@ -39,10 +44,10 @@ class Restalk
   end
 
   module ResqueAdapter
-    def init(queue = nil)
+    def init(server = nil, queue = nil)
       @queue = queue || ENV['RESQUE_QUEUE'] || 'restalk_queue'
       require 'resque'
-      Resque.redis = ENV['REDIS'] || 'localhost:6379'
+      Resque.redis = server ||  ENV['REDIS'] || 'localhost:6379'
     end
 
     def push(data)

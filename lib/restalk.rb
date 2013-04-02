@@ -3,7 +3,7 @@
 class Restalk
   class RestalkBeanstalkException < StandardError; end
 
-  VERSION = '0.1.1'
+  VERSION = '0.1.2'
   def initialize(adapter, server=nil, queue=nil)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if [:resque, :redis].include? adapter
@@ -11,7 +11,7 @@ class Restalk
   end
 
   def connected?
-    self.respond_to? :push
+    !!@current_adapter
   end
 
   def self.init(*args)

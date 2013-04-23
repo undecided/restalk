@@ -1,7 +1,7 @@
 class Restalk
   class RestalkBeanstalkException < StandardError; end
 
-  VERSION = '0.1.3'
+  VERSION = '0.1.4'
   def initialize(adapter, server=nil, queue=nil)
     extend BeanstalkAdapter if adapter == :beanstalk
     extend ResqueAdapter if [:resque, :redis].include? adapter
@@ -47,7 +47,19 @@ class Restalk
     def init(server = nil, queue = nil)
       @queue = queue || ENV['RESQUE_QUEUE'] || 'restalk_queue'
       require 'resque'
-      Resque.redis = server ||  ENV['REDIS'] || 'localhost:6379'
+      server = get_redis_object(server || ENV['REDIS'] || 'localhost:6379')
+      Resque.redis = server
+    end
+
+    def get_redis_object(url)
+      return url unless url['@']
+      credentials, url = url.split '@'
+      host, port = url.split ':'
+      username, password = credentials.split ':'
+      Redis.new(:host => host,
+                         :port => port,
+                         :username => username,
+                         :password => password)
     end
 
     def push(data)
